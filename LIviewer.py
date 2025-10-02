@@ -670,7 +670,7 @@ def makeplot(saveIt = False):
                     
         
         # shade in next case
-        if (myID < int(ICEdata[-1,0])-1) & shadeICE:
+        if (myID < int(ICEdata[-1,0])-2) & shadeICE:
             
             prevICE = 'LLAMAICE', ICEdata[myID+1, 2], ICEdata[myID+1, 3], ICEdata[myID+1, 4], ICEdata[myID+1, 5], '-', ICEdata[myID+1, 6]
             if  ICEdata[myID+1, 4] == '-':
