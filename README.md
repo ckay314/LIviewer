@@ -40,4 +40,18 @@ Some options can easiy be modified in LIviewer.py to customize the figure/interf
 Lines 22-34 establish the colors used for various items. Line 23 sets the colors of the LLAMAICE regions. Line 26 sets the colors of the different external catalog boundaries. Line 29 sets the relative position and color of the HSS catalogs. Finally lines 32-34 sets the thickness and colors of the in situ satellite data.
 
 # Getting all LLAMAICE figures
-If CODE is set to ALL then the LIviewer will not pop a window but instead save a figure for every CME in the LLAMAICE database. This will take a little bit of time for the ~400 events, and it is strongly recommended to have the figFolder setup with a nice spot to contain them. The automatic boundaries should work well for most cases but a handful of events will have less than ideal ranges and can be replaced by hand as needed. 
+If CODE is set to ALL then the LIviewer will not pop a window but instead save a figure for every CME in the LLAMAICE database. This will take a little bit of time for the ~400 events, and it is strongly recommended to have the figFolder setup with a nice spot to contain them. The automatic boundaries should work well for most cases but a handful of events will have less than ideal ranges and can be replaced by hand as needed.
+
+# LLAMAICE Data
+We list the contents of the LLAMAICE data files here for completeness.
+
+## HSSsort.dat
+This file contains the HSS boundaries pulled from the literature. It has the start and stop time in decimal year, a code for the source catalog, then the start and stop times in YYYY-MM-DD HH:MM. The letter codes correspond to [DONKI](https://kauai.ccmc.gsfc.nasa.gov/DONKI/search/) (D), [Grandin](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018JA026396) (G), [VARSITI](https://www.geodin.ro/varsiti/) (V), and [Xystouris](https://link.springer.com/article/10.1007/s11207-013-0355-z) (X). 
+## LLAMAICE_1.0.csv
+This file contains the new boundaries set by the LLAMAICE team. The columns correspond to the event number, any adjacent events that are interacting, the sheath/shock boundary, front mixed boundary, FR front, FR end, back mixed boundary, any HSS catalogs that have an entry at this time, and the comments from the team. Entries without values for a specific column have ``-'' to indicate a null value.
+
+## otherCats_1.0.dat
+This file contains the boundaries from the source catalogs. The columns list the LLAMAICE event number, the LLAMAICE time, the source catalog, the sheath/shock boundary, FR front, FR end, and the associated coronal event. Null entries are given as 'None'
+
+## plotBounds_1.0.dat 
+This file contains the plot ranges for the LLAMAICE events. The columns correspond to the LLAMAICE ID number, the LLAMAICE ID time, the plot start, and the plot end. All times are in the format YYYY-MM-DDTHH:MM
