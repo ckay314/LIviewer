@@ -12,17 +12,12 @@ figprefix   = 'LLAMAICE-'
 figtype     = '.png' 
 
 global justIS, shadeICE, plotCats, plotHSS, addLabels, saveIt
-justIS    = True 
+justIS    = False 
 shadeICE  = True
 plotCats  = True
 plotHSS   = True
 addLabels = True
 saveIt    = False 
-
-# reset things to False if doing just in situ
-# easier than forcing changes in all the flags
-if justIS:
-   shadeICE, plotCats, plotHSS, addLabels  = False, False, False, False
 
 # ICE region colors
 cols = ['r', 'orange', 'b', 'b', 'orange']     
@@ -37,6 +32,11 @@ catStyles = {'G':[-0.1, 'r'] , 'V':[0.,'b'], 'X':[0.,'orange'], 'D':[.1,'maroon'
 obsLW = 1.5 # linewidth 
 ACEcol = 'gray'
 Windcol = 'k'
+
+# reset things to False if doing just in situ
+# easier than forcing changes in all the flags
+if justIS:
+   shadeICE, plotCats, plotHSS, addLabels  = False, False, False, False
 
 
 # full names of HSS cats
@@ -756,6 +756,8 @@ def makeplot(saveIt = False):
                 en_tm = st_tm + datetime.timedelta(hours=2)   
                     
             axes[-1].fill_between([st_tm, en_tm], [dy-0.1,dy-0.1], [dy,dy], facecolor=catStyles[myCat][1])
+    else:
+        axes[-1].axis('off')
            
     
     # ============================== Labels and other plotting fun time ============================== 

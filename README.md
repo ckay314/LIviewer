@@ -17,11 +17,27 @@ Clone the repository. This should download the LIviewer.py folder, a folder with
 The next two lines set up a prefix for any output images and the type of file generated (either png or pdf)
 
 ## In Situ Data
-The repo comes with a database of ACE and Wind observations in 5 min resolution and formatted to play nice with the viewer. The different satellites live in their own folders in the ISdata folder and these names should not be edited. The ACE data is taken from SWEPAM and MAG (pulled from [here](https://izw1.caltech.edu/ACE/ASC/browse/browse_data_select.cgi?command=28)). The Wind data is taken from SWE and MFI (pulled from [here](https://cdaweb.gsfc.nasa.gov/pub/data/wind/swe/ascii/2-min/) and [here](https://spdf.gsfc.nasa.gov/pub/data/wind/mfi/ascii/1min_ascii/)). The text files correspond to a single year and have the format date (YYYY-MM-DDTHH:MM), Bx (nT), By (nT), Bz (nT), v (km/s), T (K), and n (cm^-3).
+The repo comes with a database of ACE and Wind observations in 5 min resolution and formatted to play nice with the viewer. The different satellites live in their own folders in the ISdata folder and these names should not be edited. The ACE data is taken from SWEPAM and MAG (pulled from [here](https://izw1.caltech.edu/ACE/ASC/browse/browse_data_select.cgi?command=28)). The Wind data is taken from SWE and MFI (pulled from [here](https://cdaweb.gsfc.nasa.gov/pub/data/wind/swe/ascii/2-min/) and [here](https://spdf.gsfc.nasa.gov/pub/data/wind/mfi/ascii/1min_ascii/)). The text files correspond to a single year and have the format date (YYYY-MM-DDTHH:MM), Bx (nT), By (nT), Bz (nT), v (km/s), T (K), and n (cm^-3). All B vector components are in GSE coordinates. At the moment the viewer includes data up through the end of 2024.
 
 # Running LIviewer
 The syntax for running the LLAMAICE viewer is simply
 ```
 python3 LIviewer.py CODE
 ```
-where there are several options for '''CODE'''
+where there are several options for CODE. If you want to pull up a LLAMAICE event you can use either the integer ID number or the ID time in the format YYYY-MM-DDTHH:MM. Alternatively, you can just look at in situ data without any of the LLAMAICE information. For this, CODE can be of the format YYYYMMDD, YYYYMMDDHHMM, YYYY-MM-DD, or YYYY-MM-DDTHH:MM, which will set the 'time of interest' for the plotting window. It will show one day before this time to three days after. The '-' in the time formats can be switched to '/', '_', or '.' to allow for some personal preferences.
+
+If a valid version of CODE is passed then the standard Python plot window will appear. This will show, from top to bottom, B, Bx, By, Bz, the magnetic field inclination (theta), the magnetic field longitudinal angle (phi), v, T, n, and beta. The code makes an attempt to automatically scale each panel to nice ranges and is typically successful. The built in zoom and pan options within the Python window can be used.
+
+## Customizing LIviewer
+Some options can easiy be modified in LIviewer.py to customize the figure/interface. Lines 15-20 represent binary options that can be turned on and off.
+-justIS: Only plot in situ data and none of the LLAMAICE information.
+-shadeICE: Shade in the CME regions using the boundaries established by the LLAMAICE team
+-plotCats: Plot vertical lines at the boudaries taken from external catalogs
+-plotHSS: Plot bars at the top corresponding to the location of high speed streams according to several external catalogs
+-addLabels: Add a legend on the right hand side indicating the colors of the various catalogs/regions
+-saveIt: Instead of popping up a display window just save a figure using the figprefix and figtype given in lines 11/12
+
+Lines 22-34 establish the colors used for various items. Line 23 sets the colors of the LLAMAICE regions. Line 26 sets the colors of the different external catalog boundaries. Line 29 sets the relative position and color of the HSS catalogs. Finally lines 32-34 sets the thickness and colors of the in situ satellite data.
+
+# Getting all LLAMAICE figures
+If CODE is set to ALL then the LIviewer will not pop a window but instead save a figure for every CME in the LLAMAICE database. This will take a little bit of time for the ~400 events, and it is strongly recommended to have the figFolder setup with a nice spot to contain them. The automatic boundaries should work well for most cases but a handful of events will have less than ideal ranges and can be replaced by hand as needed. 
